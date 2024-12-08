@@ -47,4 +47,11 @@ jobs:
         key: ${{ runner.os }}-venv
         needs: some-other-job
 
+        
+              matrix:
+        os: [ubuntu-latest, windows-latest]
+        defaults:
+  run:
+    shell: bash
+        
             
