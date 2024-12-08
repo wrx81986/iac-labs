@@ -18,7 +18,12 @@ jobs:
         os: [ubuntu-latest, windows-latest]
 
     steps:
-    - uses: actions/checkout@v4
+        - name: Cache build venv
+  id: cached-poetry-dependencies
+  uses: actions/cache@v3
+      with:
+        path: /home/runner/work/iac-labs/example-app/.venv
+        key: ${{ runner.os }}-venv
 
     - name: Set up Python 3.11
       uses: actions/setup-python@v3
