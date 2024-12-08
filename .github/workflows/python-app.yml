@@ -43,12 +43,4 @@ jobs:
     - name: Run Tests
       run: poetry run task test
 
-    - name: Cache build venv
-      id: cached-poetry-dependencies
-      uses: actions/cache@v3
-      with:
-        # Warunkowa ścieżka zależna od systemu operacyjnego
-        path: ${{ runner.os == 'Windows' && 'C:\\Users\\runneradmin\\AppData\\Local\\pypoetry\\Cache\\virtualenvs' || '/home/runner/work/iac-labs/example-app/.venv' }}
-        key: ${{ runner.os }}-venv-${{ hashFiles('**/poetry.lock') }}
-
             
