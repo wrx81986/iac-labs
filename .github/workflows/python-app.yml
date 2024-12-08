@@ -11,41 +11,43 @@ permissions:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
 
-    steps:
-        - name: Cache build venv
-  id: cached-poetry-dependencies
-  uses: actions/cache@v3
-      with:
-        path: /home/runner/work/iac-labs/example-app/.venv
-        key: ${{ runner.os }}-venv
+    # Use matrix value for the `runs-on` field
+    runs-on: ${{ matrix.os }}
+    
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./example-app
 
+    steps:
+    - uses: actions/checkout@v4
     - name: Set up Python 3.11
       uses: actions/setup-python@v3
       with:
         python-version: "3.11"
-
     - name: Install Poetry Action
       uses: snok/install-poetry@v1.4.1
-
-    - name: Install dependencies
+    - name: install deps
       run: poetry install --no-root
-
     - name: Run lint
       run: poetry run task lint
-
     - name: Run format
       run: poetry run task formatter
-
     - name: Run Sec
       run: poetry run task security
-
     - name: Run Tests
       run: poetry run task test
+
+    - name: Cache build venv
+      id: cached-poetry-dependencies
+      uses: actions/cache@v3
+      with:
+        path: /home/runner/work/iac-labs/example-app/.venv
+        key: ${{ runner.os }}-venv
+        needs: some-other-job
 
             
