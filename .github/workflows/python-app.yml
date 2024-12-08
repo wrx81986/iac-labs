@@ -48,8 +48,9 @@ jobs:
         needs: some-other-job
 
         
-              matrix:
+            matrix:
         os: [ubuntu-latest, windows-latest]
+        
         defaults:
   run:
     shell: bash
