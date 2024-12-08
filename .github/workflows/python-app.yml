@@ -38,13 +38,12 @@ jobs:
     - name: Run Tests
       run: poetry run task test
       
-        concurrency:
-    group: some-group-name
-        - name: Cache build venv
+
+    - name: Cache build venv
       id: cached-poetry-dependencies
       uses: actions/cache@v3
       with:
-        path: /home/runner/work/<path>/example-app/.venv
+        path: /home/runner/work/iac-labs/example-app/.venv
         key: ${{ runner.os }}-venv
         needs: some-other-job
 
